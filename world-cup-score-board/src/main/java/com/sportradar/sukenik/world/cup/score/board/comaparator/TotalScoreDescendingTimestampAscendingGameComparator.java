@@ -18,14 +18,18 @@ public class TotalScoreDescendingTimestampAscendingGameComparator implements Com
             return 0;
         }
         if (null == o1) {
-            return -1;
+            return 1;
         }
         if (null == o2) {
-            return 1;
+            return -1;
         }
         if (o1.getTotalScore() != o2.getTotalScore()) {
             return o2.getTotalScore() - o1.getTotalScore();
         }
-        return (int) (o2.getCreationTimestamp().getTime() - o1.getCreationTimestamp().getTime());
+        if (o1.getCreationTimestamp().getTime() != o2.getCreationTimestamp().getTime()) {
+            return (int) (o2.getCreationTimestamp().getTime() - o1.getCreationTimestamp().getTime());
+        }
+
+        return o1.getGameId() - o2.getGameId();
     }
 }
