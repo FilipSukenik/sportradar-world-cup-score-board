@@ -1,0 +1,9 @@
+# IDEs and editors
+/.idea
+
+#java
+.idea
+*.iws
+*.iml
+*.ipr
+target/
