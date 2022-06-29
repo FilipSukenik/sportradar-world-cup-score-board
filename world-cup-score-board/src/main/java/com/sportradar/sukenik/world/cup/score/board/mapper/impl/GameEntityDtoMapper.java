@@ -5,7 +5,7 @@
  **/
 package com.sportradar.sukenik.world.cup.score.board.mapper.impl;
 
-import com.sportradar.sukenik.world.cup.score.board.db.model.GameEntity;
+import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 import com.sportradar.sukenik.world.cup.score.board.mapper.AbstractEntityDtoMapper;
 

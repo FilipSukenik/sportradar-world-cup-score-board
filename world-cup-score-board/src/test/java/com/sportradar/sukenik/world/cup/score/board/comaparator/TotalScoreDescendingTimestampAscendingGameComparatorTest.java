@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.sportradar.sukenik.world.cup.score.board.db.model.GameEntity;
-import com.sportradar.sukenik.world.cup.score.board.db.model.TeamEntity;
+import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
+import com.sportradar.sukenik.world.cup.score.board.data.model.TeamEntity;
 
 @ExtendWith(MockitoExtension.class)
 class TotalScoreDescendingTimestampAscendingGameComparatorTest {

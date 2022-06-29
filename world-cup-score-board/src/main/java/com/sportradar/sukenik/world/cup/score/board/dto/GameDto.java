@@ -7,8 +7,6 @@ package com.sportradar.sukenik.world.cup.score.board.dto;
 
 import java.util.Date;
 
-import com.sportradar.sukenik.world.cup.score.board.db.model.TeamEntity;
-
 public class GameDto {
 
     private int gameId;

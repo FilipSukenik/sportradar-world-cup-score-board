@@ -7,19 +7,16 @@ package com.sportradar.sukenik.world.cup.score.board.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.sportradar.sukenik.world.cup.score.board.comaparator.TotalScoreDescendingTimestampAscendingGameComparator;
-import com.sportradar.sukenik.world.cup.score.board.db.ScoreBoardDao;
-import com.sportradar.sukenik.world.cup.score.board.db.model.GameEntity;
+import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDao;
+import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 import com.sportradar.sukenik.world.cup.score.board.mapper.impl.GameEntityDtoMapper;
 
 public class ScoreBoardServiceImpl implements ScoreBoardService {
 
     private final ScoreBoardDao scoreBoardDao;
-
-    private final AtomicInteger idGenerator;
 
     private final GameEntityDtoMapper gameMapper;
 
@@ -28,14 +25,13 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 
         this.scoreBoardDao = scoreBoardDao;
         this.gameMapper = gameMapper;
-        idGenerator = new AtomicInteger();
     }
 
     @Override
     public GameDto startGame(String homeTeamName, String awayTeamName) {
 
-        GameEntity gameEntity = new GameEntity(idGenerator.getAndIncrement(), homeTeamName, awayTeamName);
-        scoreBoardDao.addGame(gameEntity);
+        GameEntity gameEntity = new GameEntity(null, homeTeamName, awayTeamName);
+        gameEntity = scoreBoardDao.save(gameEntity);
         return gameMapper.mapEntityToDto(gameEntity);
     }
 
@@ -69,6 +65,7 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
         GameEntity dbEntity = entityOptional.get();
         dbEntity.getHomeTeam().setScore(newHomeTeamScore);
         dbEntity.getAwayTeam().setScore(newAwayTeamScore);
+        //TODO store change
     }
 
     @Override
