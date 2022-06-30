@@ -73,6 +73,6 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 
         List<GameEntity> dbRecords = scoreBoardDao.getGameDbList();
         dbRecords.sort(new TotalScoreDescendingTimestampAscendingGameComparator());
-        return gameMapper.mapAllEntityToDto(dbRecords);
+        return gameMapper.mapAllEntitiesToDtos(dbRecords);
     }
 }

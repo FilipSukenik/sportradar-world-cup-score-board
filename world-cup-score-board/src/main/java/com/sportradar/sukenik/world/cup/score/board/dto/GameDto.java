@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class GameDto {
 
-    private int gameId;
+    private Integer gameId;
 
     private TeamDto homeTeam;
 
@@ -24,12 +24,12 @@ public class GameDto {
 
     }
 
-    public int getGameId() {
+    public Integer getGameId() {
 
         return gameId;
     }
 
-    public void setGameId(int gameId) {
+    public void setGameId(Integer gameId) {
 
         this.gameId = gameId;
     }

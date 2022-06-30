@@ -9,19 +9,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.util.Assert;
+
 public abstract class AbstractEntityDtoMapper<E, D> {
 
-    public abstract D mapEntityToDto(E entity);
+    @Nullable
+    public abstract D mapEntityToDto(@Nullable E entity);
 
-    public abstract E mapDtoToEntity(D dto);
+    @Nullable
+    public abstract E mapDtoToEntity(@Nullable D dto);
 
-    public List<E> mapAllDtoToEntity(List<D> dtoList) {
+    @NotNull
+    public List<E> mapAllDtosToEntities(@NotNull List<D> dtoList) {
+
+        Assert.notNull(dtoList, "dtoList cannot be null");
 
         return dtoList.stream().filter(Objects::nonNull)
                 .map(this::mapDtoToEntity).collect(Collectors.toList());
     }
 
-    public List<D> mapAllEntityToDto(List<E> entityList) {
+    @NotNull
+    public List<D> mapAllEntitiesToDtos(@NotNull List<E> entityList) {
 
         return entityList.stream().filter(Objects::nonNull)
                 .map(this::mapEntityToDto).collect(Collectors.toList());

@@ -43,8 +43,13 @@ public class TotalScoreDescendingTimestampAscendingGameComparator implements Com
         if (o1.getTotalScore() != o2.getTotalScore()) {
             return o2.getTotalScore() - o1.getTotalScore();
         }
-        if (o1.getCreationTimestamp().getTime() != o2.getCreationTimestamp().getTime()) {
-            return (int) (o2.getCreationTimestamp().getTime() - o1.getCreationTimestamp().getTime());
+
+        long o1Time = null == o1.getCreationTimestamp() ? 0 : o1.getCreationTimestamp().getTime();
+        long o2Time = null == o2.getCreationTimestamp() ? 0 : o2.getCreationTimestamp().getTime();
+        if (o1Time > o2Time) {
+            return -1;
+        } else if (o2Time > o1Time) {
+            return 1;
         }
 
         return o1.getGameId() - o2.getGameId();

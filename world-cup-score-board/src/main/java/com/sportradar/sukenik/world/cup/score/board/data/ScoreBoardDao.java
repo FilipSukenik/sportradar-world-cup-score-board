@@ -47,7 +47,7 @@ public class ScoreBoardDao {
     /**
      * Save game into database. In case that {@code toStoreEntity} method {@link GameEntity#getGameId()} returns null
      * the entity receives id from {@link ScoreBoardDao#idGenerator} and entity is stored in database. In case that
-     * {@code toStoreEntity} already has id, first the database is searched whether it already contains entity with same {@link GameEntity#getAwayTeam()}.
+     * {@code toStoreEntity} already has id, first the database is searched whether it already contains entity with same {@link GameEntity#getGameId()}.
      * If no entity is found we add {@code toStoreEntity} into database, else we update values of existing entity.
      * @param toStoreEntity entity that wants to be stored to database
      */
@@ -91,6 +91,11 @@ public class ScoreBoardDao {
                 .filter(gameEntity -> gameId == gameEntity.getGameId()).findFirst();
     }
 
+    /**
+     * Removes game from database.
+     * @param toRemoveEntity contains gameId by which the entity should be removed.
+     * @return {@code true} if {@link GameEntity} with corresponding gameId was found in database.
+     */
     public boolean removeGame(@NotNull GameEntity toRemoveEntity) {
 
         Assert.notNull(toRemoveEntity, "toRemoveEntity cannot be null");

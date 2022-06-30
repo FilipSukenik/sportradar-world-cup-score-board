@@ -5,6 +5,8 @@
  **/
 package com.sportradar.sukenik.world.cup.score.board.mapper.impl;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 import com.sportradar.sukenik.world.cup.score.board.mapper.AbstractEntityDtoMapper;
@@ -19,27 +21,37 @@ public class GameEntityDtoMapper extends AbstractEntityDtoMapper<GameEntity, Gam
     }
 
     @Override
-    public GameDto mapEntityToDto(GameEntity entity) {
+    @Nullable
+    public GameDto mapEntityToDto(@Nullable GameEntity entity) {
+
+        if (null == entity) {
+            return null;
+        }
 
         GameDto dto = new GameDto();
 
         dto.setGameId(entity.getGameId());
         dto.setHomeTeam(teamMapper.mapEntityToDto(entity.getHomeTeam()));
         dto.setAwayTeam(teamMapper.mapEntityToDto(entity.getAwayTeam()));
-        dto.setGameId(entity.getGameId());
+        dto.setCreationTimestamp(entity.getCreationTimestamp());
 
         return dto;
     }
 
     @Override
-    public GameEntity mapDtoToEntity(GameDto dto) {
+    @Nullable
+    public GameEntity mapDtoToEntity(@Nullable GameDto dto) {
+
+        if (null == dto) {
+            return null;
+        }
 
         GameEntity entity = new GameEntity();
 
-        entity.setGameId(entity.getGameId());
+        entity.setGameId(dto.getGameId());
         entity.setHomeTeam(teamMapper.mapDtoToEntity(dto.getHomeTeam()));
         entity.setAwayTeam(teamMapper.mapDtoToEntity(dto.getAwayTeam()));
-        entity.setGameId(entity.getGameId());
+        entity.setCreationTimestamp(dto.getCreationTimestamp());
 
         return entity;
     }

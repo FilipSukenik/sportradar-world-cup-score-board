@@ -16,15 +16,6 @@ class GameEntityTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new GameEntity(0, "test-home-name", ""));
     }
 
-    @SuppressWarnings("ConstantConditions")
-    @Test
-    void setHomeTeamNullTest() {
-
-        GameEntity entity = new GameEntity();
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> entity.setHomeTeam(null));
-    }
-
     @Test
     void setHomeTeamCorrectTest() {
 
@@ -34,15 +25,6 @@ class GameEntityTest {
         Assertions.assertNotNull(entity.getHomeTeam());
         Assertions.assertEquals("test-name", entity.getHomeTeam().getName());
         Assertions.assertEquals(10, entity.getHomeTeam().getScore());
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    @Test
-    void setAwayTeamNullTest() {
-
-        GameEntity entity = new GameEntity();
-
-        Assertions.assertThrows(IllegalArgumentException.class, () -> entity.setAwayTeam(null));
     }
 
     @Test

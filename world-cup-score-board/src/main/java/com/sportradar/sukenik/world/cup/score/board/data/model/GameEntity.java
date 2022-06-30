@@ -26,7 +26,6 @@ public class GameEntity {
      */
     public GameEntity() {
 
-        creationTimestamp = new Date();
     }
 
     public GameEntity(@Nullable Integer gameId, @NotNull String homeTeamName, @NotNull String awayTeamName) {
@@ -66,9 +65,7 @@ public class GameEntity {
         return homeTeam;
     }
 
-    public void setHomeTeam(@NotNull TeamEntity homeTeam) {
-
-        Assert.notNull(homeTeam, "homeEntity cannot be null");
+    public void setHomeTeam(TeamEntity homeTeam) {
 
         this.homeTeam = homeTeam;
     }
@@ -78,9 +75,7 @@ public class GameEntity {
         return awayTeam;
     }
 
-    public void setAwayTeam(@NotNull TeamEntity awayTeam) {
-
-        Assert.notNull(awayTeam, "awayTeam cannot be null");
+    public void setAwayTeam(TeamEntity awayTeam) {
 
         this.awayTeam = awayTeam;
     }
@@ -90,9 +85,7 @@ public class GameEntity {
         return creationTimestamp;
     }
 
-    public void setCreationTimestamp(@NotNull Date creationTimestamp) {
-
-        Assert.notNull(creationTimestamp, "creationTimestamp cannot be null");
+    public void setCreationTimestamp(Date creationTimestamp) {
 
         this.creationTimestamp = creationTimestamp;
     }
