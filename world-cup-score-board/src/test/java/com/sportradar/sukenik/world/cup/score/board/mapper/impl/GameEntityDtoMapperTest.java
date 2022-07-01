@@ -1,7 +1,5 @@
 package com.sportradar.sukenik.world.cup.score.board.mapper.impl;
 
-import java.util.Date;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,7 +42,6 @@ class GameEntityDtoMapperTest {
         Assertions.assertNull(dto.getGameId());
         Assertions.assertNull(dto.getAwayTeam());
         Assertions.assertNull(dto.getHomeTeam());
-        Assertions.assertNull(dto.getCreationTimestamp());
     }
 
     @Test
@@ -60,7 +57,6 @@ class GameEntityDtoMapperTest {
         Assertions.assertEquals(entity.getGameId(), dto.getGameId());
         Assertions.assertNotNull(dto.getHomeTeam());
         Assertions.assertNotNull(dto.getAwayTeam());
-        Assertions.assertEquals(entity.getCreationTimestamp().getTime(), dto.getCreationTimestamp().getTime());
     }
 
     @Test
@@ -80,7 +76,6 @@ class GameEntityDtoMapperTest {
         Assertions.assertNull(entity.getGameId());
         Assertions.assertNull(entity.getAwayTeam());
         Assertions.assertNull(entity.getHomeTeam());
-        Assertions.assertNull(entity.getCreationTimestamp());
     }
 
     @Test
@@ -95,7 +90,6 @@ class GameEntityDtoMapperTest {
         team = new TeamDto();
         team.setName("test-away-name");
         dto.setAwayTeam(team);
-        dto.setCreationTimestamp(new Date());
         doCallRealMethod().when(teamMapper).mapDtoToEntity(any());
 
         GameEntity entity = mapper.mapDtoToEntity(dto);
@@ -104,6 +98,5 @@ class GameEntityDtoMapperTest {
         Assertions.assertNotNull(entity.getHomeTeam());
         Assertions.assertNotNull(entity.getAwayTeam());
         Assertions.assertEquals(dto.getGameId(), entity.getGameId());
-        Assertions.assertEquals(dto.getCreationTimestamp().getTime(), entity.getCreationTimestamp().getTime());
     }
 }

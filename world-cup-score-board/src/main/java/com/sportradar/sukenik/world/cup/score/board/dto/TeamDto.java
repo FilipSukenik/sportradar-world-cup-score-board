@@ -15,6 +15,12 @@ public class TeamDto {
 
     }
 
+    public TeamDto(String name) {
+
+        this.name = name;
+        this.score = 0;
+    }
+
     public String getName() {
 
         return name;

@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.NonBlocking;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.util.Assert;
 
@@ -37,6 +38,8 @@ public class ScoreBoardDao {
      * change value in database.
      * @return copy of {@link ArrayList} filled with copies of {@link GameEntity}.
      */
+    @NotNull
+    @NonBlocking
     public List<GameEntity> getGameDbList() {
 
         return gameDbList.stream()
@@ -51,6 +54,7 @@ public class ScoreBoardDao {
      * If no entity is found we add {@code toStoreEntity} into database, else we update values of existing entity.
      * @param toStoreEntity entity that wants to be stored to database
      */
+    @NotNull
     public GameEntity save(@NotNull GameEntity toStoreEntity) {
 
         Assert.notNull(toStoreEntity, "cannot save null into database");
@@ -73,7 +77,6 @@ public class ScoreBoardDao {
             return new GameEntity(copiedEntity);
         }
         GameEntity foundEntity = dbEntityOptional.get();
-        foundEntity.setCreationTimestamp(copiedEntity.getCreationTimestamp());
         foundEntity.setAwayTeam(copiedEntity.getAwayTeam());
         foundEntity.setHomeTeam(copiedEntity.getHomeTeam());
         // returns copy, to prevent user from updating stored instance in database from calling code
@@ -85,10 +88,10 @@ public class ScoreBoardDao {
      * @param gameId - element id that is searched by.
      * @return Optional of find element.
      */
-    public Optional<GameEntity> findGameById(int gameId) {
+    public Optional<GameEntity> findGameById(Integer gameId) {
 
         return gameDbList.stream()
-                .filter(gameEntity -> gameId == gameEntity.getGameId()).findFirst();
+                .filter(gameEntity -> gameId.equals(gameEntity.getGameId())).findFirst();
     }
 
     /**

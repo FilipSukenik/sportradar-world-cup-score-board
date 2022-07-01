@@ -46,6 +46,5 @@ class GameEntityTest {
         Assertions.assertNotNull(game.getHomeTeam());
         Assertions.assertNotNull(game.getAwayTeam());
         Assertions.assertEquals(1, game.getGameId());
-        Assertions.assertNotNull(game.getCreationTimestamp());
     }
 }

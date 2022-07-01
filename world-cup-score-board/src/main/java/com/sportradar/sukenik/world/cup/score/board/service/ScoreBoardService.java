@@ -13,11 +13,11 @@ public interface ScoreBoardService {
 
     GameDto startGame(String homeTeamName, String awayTeamName);
 
-    void finishGameById(int gameId);
+    boolean finishGameById(Integer gameId);
 
-    void finishGame(GameDto gameDto);
+    boolean finishGame(GameDto gameDto);
 
-    void updateGameScore(int gameId, int newHomeTeamScore, int newAwayTeamScore);
+    boolean updateGameScore(Integer gameId, int newHomeTeamScore, int newAwayTeamScore);
 
     List<GameDto> getSummary();
 }

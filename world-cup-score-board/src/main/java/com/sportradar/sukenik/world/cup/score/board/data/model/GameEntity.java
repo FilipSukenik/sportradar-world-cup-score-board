@@ -19,8 +19,6 @@ public class GameEntity {
 
     private TeamEntity awayTeam;
 
-    private Date creationTimestamp;
-
     /**
      * Default constructor so {@link GameEntity} is Java Bean.
      */
@@ -33,7 +31,6 @@ public class GameEntity {
         this.gameId = gameId;
         homeTeam = new TeamEntity(homeTeamName);
         awayTeam = new TeamEntity(awayTeamName);
-        creationTimestamp = new Date();
     }
 
     /**
@@ -45,7 +42,6 @@ public class GameEntity {
         Assert.notNull(toCopy, "Cannot create copy of null GameEntity");
 
         this.gameId = toCopy.getGameId();
-        this.creationTimestamp = toCopy.getCreationTimestamp();
         this.homeTeam = new TeamEntity(toCopy.getHomeTeam());
         this.awayTeam = new TeamEntity(toCopy.getAwayTeam());
     }
@@ -80,16 +76,6 @@ public class GameEntity {
         this.awayTeam = awayTeam;
     }
 
-    public Date getCreationTimestamp() {
-
-        return creationTimestamp;
-    }
-
-    public void setCreationTimestamp(Date creationTimestamp) {
-
-        this.creationTimestamp = creationTimestamp;
-    }
-
     public int getTotalScore() {
 
         return extractScore(homeTeam) + extractScore(awayTeam);
@@ -99,4 +85,19 @@ public class GameEntity {
 
         return null == team ? 0 : team.getScore();
     }
+
+    public void updateScore(int homeTeamScore, int awayTeamScore) {
+
+        updateScore(homeTeamScore, homeTeam);
+        updateScore(awayTeamScore, awayTeam);
+    }
+
+    public void updateScore(int score, TeamEntity team) {
+
+        if (null == team) {
+            return;
+        }
+        team.setScore(score);
+    }
+
 }

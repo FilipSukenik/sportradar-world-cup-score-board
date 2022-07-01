@@ -8,6 +8,10 @@ package com.sportradar.sukenik.world.cup.score.board.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.util.Assert;
+
 import com.sportradar.sukenik.world.cup.score.board.comaparator.TotalScoreDescendingTimestampAscendingGameComparator;
 import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDao;
 import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
@@ -28,7 +32,11 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
     }
 
     @Override
+    @Nullable
     public GameDto startGame(String homeTeamName, String awayTeamName) {
+
+        Assert.hasText(homeTeamName, "homeTeamName cannot be nul nor empty string");
+        Assert.hasText(awayTeamName, "awayTeamName cannot be nul nor empty string");
 
         GameEntity gameEntity = new GameEntity(null, homeTeamName, awayTeamName);
         gameEntity = scoreBoardDao.save(gameEntity);
@@ -36,39 +44,42 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
     }
 
     @Override
-    public void finishGameById(int gameId) {
+    public boolean finishGameById(Integer gameId) {
 
         Optional<GameEntity> entityOptional = scoreBoardDao.findGameById(gameId);
 
         if (entityOptional.isEmpty()) {
-            // TODO throw not found exception
-            return;
+
+            return false;
         }
-        scoreBoardDao.removeGame(entityOptional.get());
+        return scoreBoardDao.removeGame(entityOptional.get());
     }
 
     @Override
-    public void finishGame(GameDto gameDto) {
+    public boolean finishGame(@NotNull GameDto gameDto) {
 
-        finishGameById(gameDto.getGameId());
+        Assert.notNull(gameDto, "gameDto cannot be null");
+
+        return finishGameById(gameDto.getGameId());
     }
 
     @Override
-    public void updateGameScore(int gameId, int newHomeTeamScore, int newAwayTeamScore) {
+    public boolean updateGameScore(Integer gameId, int newHomeTeamScore, int newAwayTeamScore) {
 
         Optional<GameEntity> entityOptional = scoreBoardDao.findGameById(gameId);
 
         if (entityOptional.isEmpty()) {
-            // TODO throw not found exception
-            return;
+
+            return false;
         }
         GameEntity dbEntity = entityOptional.get();
-        dbEntity.getHomeTeam().setScore(newHomeTeamScore);
-        dbEntity.getAwayTeam().setScore(newAwayTeamScore);
-        //TODO store change
+        dbEntity.updateScore(newHomeTeamScore, newAwayTeamScore);
+        scoreBoardDao.save(dbEntity);
+        return true;
     }
 
     @Override
+    @NotNull
     public List<GameDto> getSummary() {
 
         List<GameEntity> dbRecords = scoreBoardDao.getGameDbList();

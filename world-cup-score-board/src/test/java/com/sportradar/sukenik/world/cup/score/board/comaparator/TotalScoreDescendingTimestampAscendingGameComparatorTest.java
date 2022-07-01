@@ -48,27 +48,6 @@ class TotalScoreDescendingTimestampAscendingGameComparatorTest {
     }
 
     @Test
-    void compareSameScoreSameTimestampDifferentIdTest() {
-
-        GameEntity game1 = new GameEntity(1, "test-home-team", "test-away-team");
-        GameEntity game2 = new GameEntity(2, "test-home-team", "test-away-team");
-        game2.setCreationTimestamp(game1.getCreationTimestamp());
-
-        Assertions.assertEquals(-1, comparator.compare(game1, game2));
-    }
-
-    @Test
-    void compareSameScoreDifferentTimestampSameIdTest() throws InterruptedException {
-
-        GameEntity game1 = new GameEntity(1, "test-home-team", "test-away-team");
-        //postpone creation 1 to one millis
-        Thread.sleep(1);
-        GameEntity game2 = new GameEntity(1, "test-home-team", "test-away-team");
-
-        Assertions.assertTrue(comparator.compare(game1, game2) > 0);
-    }
-
-    @Test
     void compareFirstTotalScoreMoreThanSecondTest() {
 
         GameEntity game1 = new GameEntity(1, "test-home-team", "test-away-team");

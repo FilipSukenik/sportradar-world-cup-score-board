@@ -33,7 +33,6 @@ public class GameEntityDtoMapper extends AbstractEntityDtoMapper<GameEntity, Gam
         dto.setGameId(entity.getGameId());
         dto.setHomeTeam(teamMapper.mapEntityToDto(entity.getHomeTeam()));
         dto.setAwayTeam(teamMapper.mapEntityToDto(entity.getAwayTeam()));
-        dto.setCreationTimestamp(entity.getCreationTimestamp());
 
         return dto;
     }
@@ -51,7 +50,6 @@ public class GameEntityDtoMapper extends AbstractEntityDtoMapper<GameEntity, Gam
         entity.setGameId(dto.getGameId());
         entity.setHomeTeam(teamMapper.mapDtoToEntity(dto.getHomeTeam()));
         entity.setAwayTeam(teamMapper.mapDtoToEntity(dto.getAwayTeam()));
-        entity.setCreationTimestamp(dto.getCreationTimestamp());
 
         return entity;
     }
