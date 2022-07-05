@@ -1,7 +1,5 @@
 package com.sportradar.sukenik.world.cup.score.board.data.model;
 
-import java.util.Date;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.util.Assert;

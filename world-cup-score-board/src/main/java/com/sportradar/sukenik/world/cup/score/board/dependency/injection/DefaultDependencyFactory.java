@@ -1,9 +1,6 @@
 package com.sportradar.sukenik.world.cup.score.board.dependency.injection;
 
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.jetbrains.annotations.NotNull;
 
 import com.sportradar.sukenik.world.cup.score.board.ScoreBoard;
 import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDao;

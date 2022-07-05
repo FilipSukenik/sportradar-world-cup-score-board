@@ -22,14 +22,12 @@ class ScoreBoardImplTest {
 
     private ScoreBoardImpl scoreBoard;
 
-    private MockedDependencyFactory dependencyFactory;
-
     private ScoreBoard mockedService;
 
     @BeforeEach
     void setUp() {
 
-        dependencyFactory = new MockedDependencyFactory();
+        MockedDependencyFactory dependencyFactory = new MockedDependencyFactory();
 
         scoreBoard = new ScoreBoardImpl(dependencyFactory);
 

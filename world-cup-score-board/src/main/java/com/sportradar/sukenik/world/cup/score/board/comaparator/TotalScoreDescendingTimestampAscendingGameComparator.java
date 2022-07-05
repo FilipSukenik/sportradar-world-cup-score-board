@@ -2,8 +2,8 @@ package com.sportradar.sukenik.world.cup.score.board.comaparator;
 
 import java.util.Comparator;
 
-import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 import com.sportradar.sukenik.world.cup.score.board.ScoreBoard;
+import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 
 /**
  * Comparator that contains comparison logic for {@link ScoreBoard}.
