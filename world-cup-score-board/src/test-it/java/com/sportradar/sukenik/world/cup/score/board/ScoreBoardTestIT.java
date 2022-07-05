@@ -19,7 +19,7 @@ class ScoreBoardTestIT {
     }
 
     @Test
-    void integrationRequirementTest() {
+    void acceptanceTest() {
 
         GameDto game = scoreBoard.startGame("Mexico", "Canada");
         scoreBoard.updateGameScore(game.getGameId(), 0, 5);
