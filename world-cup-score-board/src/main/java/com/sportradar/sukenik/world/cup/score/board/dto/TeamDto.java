@@ -1,8 +1,3 @@
-/**
- * Copyright 2022 European Commission. All rights reserved.
- * European Commission PROPRIETARY/CONFIDENTIAL.
- *
- **/
 package com.sportradar.sukenik.world.cup.score.board.dto;
 
 public class TeamDto {
