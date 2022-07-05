@@ -61,4 +61,14 @@ public class GameDto {
 
         this.awayTeam = awayTeam;
     }
+
+    @Override
+    public String toString() {
+
+        return "GameDto{" +
+                "gameId=" + gameId +
+                ", homeTeam=" + homeTeam +
+                ", awayTeam=" + awayTeam +
+                '}';
+    }
 }

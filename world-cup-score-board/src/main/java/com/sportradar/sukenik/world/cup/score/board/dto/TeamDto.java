@@ -40,4 +40,13 @@ public class TeamDto {
 
         this.score = score;
     }
+
+    @Override
+    public String toString() {
+
+        return "TeamDto{" +
+                "name='" + name + '\'' +
+                ", score=" + score +
+                '}';
+    }
 }
