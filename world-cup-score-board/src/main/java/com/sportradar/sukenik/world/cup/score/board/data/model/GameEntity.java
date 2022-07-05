@@ -4,6 +4,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.util.Assert;
 
+/**
+ * Entity that represents Game on the score board. Contains {@link #gameId} that is identificator of the game and 2 teams - {@link #homeTeam}
+ * and {@link #awayTeam}.
+ */
 public class GameEntity {
 
     private Integer gameId;

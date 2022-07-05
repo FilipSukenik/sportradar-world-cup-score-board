@@ -14,7 +14,8 @@ import org.springframework.util.Assert;
 import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 
 /**
- * Data component that stores in data in memory. Contains list of all games on score board. List is final field so cannot be changed
+ * Data component that stores in data in memory. Contains {@link Map} of all games on score board, where gamId is key
+ * and {@link GameEntity} as value. {@link #gameDbMap} is final field so cannot be changed
  * from outside.
  */
 public class ScoreBoardDaoImpl implements ScoreBoardDao {
@@ -30,7 +31,7 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
     }
 
     /**
-     * Returns copy of the list, however, all objects are deep copies, so alteration of object from calling code does not
+     * Returns copy of the list of values, however, all objects are deep copies, so alteration of object from calling code does not
      * change value in database.
      * @return copy of {@link ArrayList} filled with copies of {@link GameEntity}.
      */
@@ -47,7 +48,7 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
      * Save game into database. In case that {@code toStoreEntity}'s method {@link GameEntity#getGameId()} returns null
      * the entity receives id from {@link ScoreBoardDaoImpl#idGenerator} and entity is stored in database. In case that
      * {@code toStoreEntity} already has id, first the database is searched whether it already contains entity with same {@link GameEntity#getGameId()}.
-     * If no entity is found we add {@code toStoreEntity} into database, else we update values of existing entity.
+     * If no entity is found adds {@code toStoreEntity} into database, else we update values of existing entity.
      * @param toStoreEntity entity that wants to be stored to database.
      */
     @Override
@@ -81,9 +82,10 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
     /**
      * Returns optional of first element that matches gameId.
      * @param gameId - element id that is searched by.
-     * @return Optional of find element.
+     * @return Optional of found or not found element.
      */
     @Override
+    @NotNull
     public Optional<GameEntity> findGameById(Integer gameId) {
 
         return Optional.ofNullable(gameDbMap.get(gameId));

@@ -11,6 +11,9 @@ import com.sportradar.sukenik.world.cup.score.board.service.ScoreBoardServiceImp
 
 public class DefaultDependencyFactory extends DependencyFactory {
 
+    /**
+     * Explicitly defined default constructor.
+     */
     public DefaultDependencyFactory() {
 
     }
