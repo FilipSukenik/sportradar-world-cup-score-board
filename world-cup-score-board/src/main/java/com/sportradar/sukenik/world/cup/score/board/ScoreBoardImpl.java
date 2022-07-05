@@ -6,27 +6,29 @@
 package com.sportradar.sukenik.world.cup.score.board;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import com.sportradar.sukenik.world.cup.score.board.dependency.injection.DefaultDependencyFactory;
 import com.sportradar.sukenik.world.cup.score.board.dependency.injection.DependencyFactory;
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 import com.sportradar.sukenik.world.cup.score.board.exception.TechnicalException;
+import com.sportradar.sukenik.world.cup.score.board.service.ScoreBoardServiceImpl;
 
 public class ScoreBoardImpl implements ScoreBoard {
 
     private final ScoreBoard scoreBoardService;
 
-    private ScoreBoardImpl() {
+    public ScoreBoardImpl() {
 
         DependencyFactory dependencyFactory = new DefaultDependencyFactory();
         dependencyFactory.init();
-        scoreBoardService = dependencyFactory.getDependency(ScoreBoard.class);
+        scoreBoardService = dependencyFactory.getDependency(ScoreBoardServiceImpl.class);
     }
 
     public ScoreBoardImpl(DependencyFactory dependencyFactory) {
 
         dependencyFactory.init();
-        scoreBoardService = dependencyFactory.getDependency(ScoreBoard.class);
+        scoreBoardService = dependencyFactory.getDependency(ScoreBoardServiceImpl.class);
     }
 
     @Override
@@ -34,10 +36,10 @@ public class ScoreBoardImpl implements ScoreBoard {
 
         try {
             return scoreBoardService.startGame(homeTeamName, awayTeamName);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | TechnicalException e) {
             throw e;
         } catch (Exception e) {
-            throw new TechnicalException("Exception wast thrown during startGame() execution", e);
+            throw new TechnicalException("Exception was thrown during startGame() execution", e);
         }
     }
 
@@ -46,8 +48,10 @@ public class ScoreBoardImpl implements ScoreBoard {
 
         try {
             return scoreBoardService.finishGameById(gameId);
+        } catch (IllegalArgumentException | TechnicalException e) {
+            throw e;
         } catch (Exception e) {
-            throw new TechnicalException("Exception wast thrown during finishGameById() execution", e);
+            throw new TechnicalException("Exception was thrown during finishGameById() execution", e);
         }
     }
 
@@ -56,10 +60,10 @@ public class ScoreBoardImpl implements ScoreBoard {
 
         try {
             return scoreBoardService.finishGame(gameDto);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | TechnicalException e) {
             throw e;
         } catch (Exception e) {
-            throw new TechnicalException("Exception wast thrown during finishGame() execution", e);
+            throw new TechnicalException("Exception was thrown during finishGame() execution", e);
         }
     }
 
@@ -68,10 +72,10 @@ public class ScoreBoardImpl implements ScoreBoard {
 
         try {
             return scoreBoardService.updateGameScore(gameId, newHomeTeamScore, newAwayTeamScore);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | TechnicalException e) {
             throw e;
         } catch (Exception e) {
-            throw new TechnicalException("Exception wast thrown during updateGameScore() execution", e);
+            throw new TechnicalException("Exception was thrown during updateGameScore() execution", e);
         }
     }
 
@@ -80,10 +84,10 @@ public class ScoreBoardImpl implements ScoreBoard {
 
         try {
             return scoreBoardService.getSummary();
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | TechnicalException e) {
             throw e;
         } catch (Exception e) {
-            throw new TechnicalException("Exception wast thrown during getSummary() execution", e);
+            throw new TechnicalException("Exception was thrown during getSummary() execution", e);
         }
     }
 }
