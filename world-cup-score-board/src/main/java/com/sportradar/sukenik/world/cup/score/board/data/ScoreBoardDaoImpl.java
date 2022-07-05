@@ -6,7 +6,9 @@
 package com.sportradar.sukenik.world.cup.score.board.data;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -22,14 +24,14 @@ import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
  */
 public class ScoreBoardDaoImpl implements ScoreBoardDao {
 
-    private final List<GameEntity> gameDbList;
+    private final Map<Integer, GameEntity> gameDbMap;
 
     private final AtomicInteger idGenerator;
 
     public ScoreBoardDaoImpl(AtomicInteger idGenerator) {
 
         this.idGenerator = idGenerator;
-        this.gameDbList = new ArrayList<>();
+        this.gameDbMap = new LinkedHashMap<>();
     }
 
     /**
@@ -41,7 +43,7 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
     @NotNull
     public List<GameEntity> getGameDbList() {
 
-        return gameDbList.stream()
+        return gameDbMap.values().stream()
                 .map(GameEntity::new)
                 .collect(Collectors.toList());
     }
@@ -64,23 +66,21 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
 
         if (null == copiedEntity.getGameId()) {
             copiedEntity.setGameId(idGenerator.getAndIncrement());
-            gameDbList.add(copiedEntity);
+            gameDbMap.put(copiedEntity.getGameId(), copiedEntity);
             return new GameEntity(copiedEntity);
         }
-        Optional<GameEntity> dbEntityOptional = gameDbList.stream()
-                .filter(dbEntity -> dbEntity.getGameId().equals(copiedEntity.getGameId())).findFirst();
+        GameEntity dbEntity = gameDbMap.get(copiedEntity.getGameId());
 
         // in case that no entity is found in database, we need to change gameId of provided entity so idGenerator sequence is not broken
-        if (dbEntityOptional.isEmpty()) {
+        if (null == dbEntity) {
             copiedEntity.setGameId(idGenerator.getAndIncrement());
-            gameDbList.add(copiedEntity);
+            gameDbMap.put(copiedEntity.getGameId(), copiedEntity);
             return new GameEntity(copiedEntity);
         }
-        GameEntity foundEntity = dbEntityOptional.get();
-        foundEntity.setAwayTeam(copiedEntity.getAwayTeam());
-        foundEntity.setHomeTeam(copiedEntity.getHomeTeam());
+        dbEntity.setAwayTeam(copiedEntity.getAwayTeam());
+        dbEntity.setHomeTeam(copiedEntity.getHomeTeam());
         // returns copy, to prevent user from updating stored instance in database from calling code
-        return new GameEntity(foundEntity);
+        return new GameEntity(dbEntity);
     }
 
     /**
@@ -91,8 +91,7 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
     @Override
     public Optional<GameEntity> findGameById(Integer gameId) {
 
-        return gameDbList.stream()
-                .filter(gameEntity -> gameId.equals(gameEntity.getGameId())).findFirst();
+        return Optional.ofNullable(gameDbMap.get(gameId));
     }
 
     /**
@@ -105,6 +104,7 @@ public class ScoreBoardDaoImpl implements ScoreBoardDao {
 
         Assert.notNull(toRemoveEntity, "toRemoveEntity cannot be null");
 
-        return gameDbList.removeIf(dbEntity -> toRemoveEntity.getGameId().equals(dbEntity.getGameId()));
+        GameEntity removedEntity = gameDbMap.remove(toRemoveEntity.getGameId());
+        return removedEntity != null;
     }
 }
