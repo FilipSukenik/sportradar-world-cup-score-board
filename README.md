@@ -1,1 +1,0 @@
-# sportradar-world-cup-score-board
