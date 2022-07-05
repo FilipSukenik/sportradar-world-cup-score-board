@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 
-class ScoreBoardTest {
+class ScoreBoardTestIT {
 
     private ScoreBoard scoreBoard;
 

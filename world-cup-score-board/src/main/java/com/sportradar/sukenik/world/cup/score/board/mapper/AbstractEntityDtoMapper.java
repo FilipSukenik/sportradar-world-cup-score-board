@@ -35,6 +35,8 @@ public abstract class AbstractEntityDtoMapper<E, D> {
     @NotNull
     public List<D> mapAllEntitiesToDtos(@NotNull List<E> entityList) {
 
+        Assert.notNull(entityList, "entityList cannot be null");
+
         return entityList.stream().filter(Objects::nonNull)
                 .map(this::mapEntityToDto).collect(Collectors.toList());
     }

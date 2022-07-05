@@ -83,6 +83,10 @@ class DependencyFactoryTest {
 
     private static class NullObjectDependencyFactory extends DependencyFactory {
 
+        public NullObjectDependencyFactory() {
+
+        }
+
         public NullObjectDependencyFactory(
                 @NotNull Map<Class<?>, Object> dependenciesMap) {
 
