@@ -8,6 +8,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.util.Assert;
 
+/**
+ * Provides a way of mapping of specific entity and dto. Both abstract methods ({@link #mapDtoToEntity(Object)} and {@link #mapEntityToDto(Object)})
+ * needs to be overridden by children and provide implementation of how to map entity to dto and dto to entity.
+ * Class also provides implementation of mapping of lists.
+ * @param <E> entity class.
+ * @param <D> dto class.
+ */
 public abstract class AbstractEntityDtoMapper<E, D> {
 
     @Nullable

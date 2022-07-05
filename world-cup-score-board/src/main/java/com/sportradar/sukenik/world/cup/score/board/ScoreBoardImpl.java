@@ -11,6 +11,17 @@ import com.sportradar.sukenik.world.cup.score.board.dependency.injection.Depende
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 import com.sportradar.sukenik.world.cup.score.board.exception.TechnicalException;
 
+/**
+ * Serves as proxy to all business logic implemented by {@link com.sportradar.sukenik.world.cup.score.board.service.ScoreBoardServiceImpl}.
+ * The proxy's goal is exception handling so each method inherited from {@link ScoreBoard} calls
+ * same method on {@link com.sportradar.sukenik.world.cup.score.board.service.ScoreBoardServiceImpl}.
+ * All exception handling is handled by {@link #callMethod(Supplier)}.
+ *
+ * Next purpose of this class is to handle dependency management. Client can call default constructor and
+ * use {@link DefaultDependencyFactory} or he can provide his own implementation of {@link DependencyFactory}.
+ * In provided dependency management client has to specify class which inherits from {@link ScoreBoard}
+ * and dependency factory has to have stored this implementation by key ScoreBoard.class.
+ */
 public class ScoreBoardImpl implements ScoreBoard {
 
     private final ScoreBoard scoreBoardService;
@@ -58,6 +69,14 @@ public class ScoreBoardImpl implements ScoreBoard {
         return callMethod(scoreBoardService::getSummary);
     }
 
+    /**
+     * Calls supplier's method and handles exception thrown by call. In case of {@link IllegalArgumentException} and
+     * {@link TechnicalException}, the exception is just rethrown, but in case of any other {@link Exception}, the exception
+     * is wrapped by {@link TechnicalException}.
+     * @param methodSupplier containing method that should be executed.
+     * @param <O> generic for return type of original method.
+     * @return value returned by calling original method.
+     */
     <O> O callMethod(@NotNull Supplier<O> methodSupplier) {
 
         Assert.notNull(methodSupplier, "methodSupplier cannot be null");
@@ -71,6 +90,10 @@ public class ScoreBoardImpl implements ScoreBoard {
         }
     }
 
+    /**
+     * Extracts name of method called by {@link #callMethod(Supplier)}.
+     * @return name of originally called method.
+     */
     String getMethodName() {
 
         return new Throwable()

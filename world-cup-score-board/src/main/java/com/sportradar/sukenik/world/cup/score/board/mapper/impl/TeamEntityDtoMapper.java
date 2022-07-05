@@ -6,6 +6,9 @@ import com.sportradar.sukenik.world.cup.score.board.data.model.TeamEntity;
 import com.sportradar.sukenik.world.cup.score.board.dto.TeamDto;
 import com.sportradar.sukenik.world.cup.score.board.mapper.AbstractEntityDtoMapper;
 
+/**
+ * Specifies mapping between {@link TeamEntity} and {@link TeamDto}.
+ */
 public class TeamEntityDtoMapper extends AbstractEntityDtoMapper<TeamEntity, TeamDto> {
 
     @Override
