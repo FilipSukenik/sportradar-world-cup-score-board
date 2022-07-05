@@ -100,4 +100,13 @@ public class GameEntity {
         team.setScore(score);
     }
 
+    @Override
+    public String toString() {
+
+        return "GameEntity{" +
+                "gameId=" + gameId +
+                ", homeTeam=" + homeTeam +
+                ", awayTeam=" + awayTeam +
+                '}';
+    }
 }

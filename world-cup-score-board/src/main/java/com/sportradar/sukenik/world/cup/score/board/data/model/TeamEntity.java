@@ -87,4 +87,13 @@ public class TeamEntity {
 
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+
+        return "TeamEntity{" +
+                "name='" + name + '\'' +
+                ", score=" + score +
+                '}';
+    }
 }
