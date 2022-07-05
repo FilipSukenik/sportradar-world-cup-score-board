@@ -3,7 +3,7 @@
  * European Commission PROPRIETARY/CONFIDENTIAL.
  *
  **/
-package com.sportradar.sukenik.world.cup.score.board;
+package com.sportradar.sukenik.world.cup.score.board.exception;
 
 public class TechnicalException extends RuntimeException {
 

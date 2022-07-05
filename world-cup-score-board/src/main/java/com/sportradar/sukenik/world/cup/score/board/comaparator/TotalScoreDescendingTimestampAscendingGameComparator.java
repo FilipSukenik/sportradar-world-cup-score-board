@@ -8,9 +8,10 @@ package com.sportradar.sukenik.world.cup.score.board.comaparator;
 import java.util.Comparator;
 
 import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
+import com.sportradar.sukenik.world.cup.score.board.ScoreBoard;
 
 /**
- * Comparator that contains comparison logic for {@link com.sportradar.sukenik.world.cup.score.board.service.ScoreBoardService}.
+ * Comparator that contains comparison logic for {@link ScoreBoard}.
  */
 public class TotalScoreDescendingTimestampAscendingGameComparator implements Comparator<GameEntity> {
 

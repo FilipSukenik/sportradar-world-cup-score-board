@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDao;
+import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDaoImpl;
 import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 import com.sportradar.sukenik.world.cup.score.board.mapper.impl.GameEntityDtoMapper;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.doReturn;
 class ScoreBoardServiceImplTest {
 
     @Mock
-    private ScoreBoardDao scoreBoardDao;
+    private ScoreBoardDaoImpl scoreBoardDao;
 
     @Mock
     private GameEntityDtoMapper mapper;

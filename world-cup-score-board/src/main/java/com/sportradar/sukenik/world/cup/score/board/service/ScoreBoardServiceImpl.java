@@ -12,19 +12,20 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.util.Assert;
 
+import com.sportradar.sukenik.world.cup.score.board.ScoreBoard;
 import com.sportradar.sukenik.world.cup.score.board.comaparator.TotalScoreDescendingTimestampAscendingGameComparator;
-import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDao;
+import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDaoImpl;
 import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 import com.sportradar.sukenik.world.cup.score.board.mapper.impl.GameEntityDtoMapper;
 
-public class ScoreBoardServiceImpl implements ScoreBoardService {
+public class ScoreBoardServiceImpl implements ScoreBoard {
 
-    private final ScoreBoardDao scoreBoardDao;
+    private final ScoreBoardDaoImpl scoreBoardDao;
 
     private final GameEntityDtoMapper gameMapper;
 
-    public ScoreBoardServiceImpl(ScoreBoardDao scoreBoardDao,
+    public ScoreBoardServiceImpl(ScoreBoardDaoImpl scoreBoardDao,
             GameEntityDtoMapper gameMapper) {
 
         this.scoreBoardDao = scoreBoardDao;

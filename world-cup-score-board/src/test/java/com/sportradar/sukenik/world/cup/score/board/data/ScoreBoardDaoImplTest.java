@@ -15,14 +15,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 
 @ExtendWith(MockitoExtension.class)
-class ScoreBoardDaoTest {
+class ScoreBoardDaoImplTest {
 
     @Mock
     private AtomicInteger idGenerator;
 
     @Spy
     @InjectMocks
-    private ScoreBoardDao scoreBoardDao;
+    private ScoreBoardDaoImpl scoreBoardDao;
 
     @Test
     void getGameDbListEmptyDbTest() {
