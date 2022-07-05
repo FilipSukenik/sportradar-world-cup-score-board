@@ -25,9 +25,4 @@ public class TechnicalException extends RuntimeException {
 
         super(cause);
     }
-
-    public TechnicalException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
 }

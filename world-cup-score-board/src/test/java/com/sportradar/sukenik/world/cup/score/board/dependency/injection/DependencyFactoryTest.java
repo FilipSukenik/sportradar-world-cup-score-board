@@ -1,5 +1,9 @@
 package com.sportradar.sukenik.world.cup.score.board.dependency.injection;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +19,24 @@ class DependencyFactoryTest {
 
     @Spy
     private NullObjectDependencyFactory dependencyFactory;
+
+    @SuppressWarnings("ConstantConditions")
+    @Test
+    void constructorHashMapNullTest() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new NullObjectDependencyFactory(null));
+    }
+
+    @Test
+    void constructorHashMapCorrectTest() {
+
+        Map<Class<?>, Object> dependenciesMap = new HashMap<>();
+        dependenciesMap.put(ScoreBoard.class, new ScoreBoardImpl());
+
+        DependencyFactory dependencyFactory = new NullObjectDependencyFactory(dependenciesMap);
+
+        Assertions.assertNotNull(dependencyFactory.getDependency(ScoreBoard.class));
+    }
 
     @Test
     void getDependencyNotInitializedTest() {
@@ -52,6 +74,16 @@ class DependencyFactoryTest {
     }
 
     private static class NullObjectDependencyFactory extends DependencyFactory {
+
+        public NullObjectDependencyFactory() {
+
+        }
+
+        public NullObjectDependencyFactory(
+                @NotNull Map<Class<?>, Object> dependenciesMap) {
+
+            super(dependenciesMap);
+        }
 
         @Override
         protected void initDependencies() {

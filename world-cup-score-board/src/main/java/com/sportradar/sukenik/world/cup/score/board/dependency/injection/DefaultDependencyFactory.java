@@ -5,8 +5,13 @@
  **/
 package com.sportradar.sukenik.world.cup.score.board.dependency.injection;
 
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jetbrains.annotations.NotNull;
+
+import com.sportradar.sukenik.world.cup.score.board.ScoreBoard;
+import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDao;
 import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDaoImpl;
 import com.sportradar.sukenik.world.cup.score.board.mapper.impl.GameEntityDtoMapper;
 import com.sportradar.sukenik.world.cup.score.board.mapper.impl.TeamEntityDtoMapper;
@@ -14,19 +19,23 @@ import com.sportradar.sukenik.world.cup.score.board.service.ScoreBoardServiceImp
 
 public class DefaultDependencyFactory extends DependencyFactory {
 
+    public DefaultDependencyFactory() {
+
+    }
+
     @Override
     protected void initDependencies() {
 
         // add dao
-        addDependency(ScoreBoardDaoImpl.class, new ScoreBoardDaoImpl(new AtomicInteger(1)));
+        addDependency(ScoreBoardDao.class, new ScoreBoardDaoImpl(new AtomicInteger(1)));
 
         // add mappers
         addDependency(TeamEntityDtoMapper.class, new TeamEntityDtoMapper());
         addDependency(GameEntityDtoMapper.class, new GameEntityDtoMapper(getDependency(TeamEntityDtoMapper.class)));
 
         // add service
-        addDependency(ScoreBoardServiceImpl.class, new ScoreBoardServiceImpl(
-                getDependency(ScoreBoardDaoImpl.class), getDependency(GameEntityDtoMapper.class)
+        addDependency(ScoreBoard.class, new ScoreBoardServiceImpl(
+                getDependency(ScoreBoardDao.class), getDependency(GameEntityDtoMapper.class)
         ));
     }
 }

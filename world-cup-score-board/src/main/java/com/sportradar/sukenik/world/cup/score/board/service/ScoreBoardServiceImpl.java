@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import com.sportradar.sukenik.world.cup.score.board.ScoreBoard;
 import com.sportradar.sukenik.world.cup.score.board.comaparator.TotalScoreDescendingTimestampAscendingGameComparator;
+import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDao;
 import com.sportradar.sukenik.world.cup.score.board.data.ScoreBoardDaoImpl;
 import com.sportradar.sukenik.world.cup.score.board.data.model.GameEntity;
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
@@ -21,11 +22,11 @@ import com.sportradar.sukenik.world.cup.score.board.mapper.impl.GameEntityDtoMap
 
 public class ScoreBoardServiceImpl implements ScoreBoard {
 
-    private final ScoreBoardDaoImpl scoreBoardDao;
+    private final ScoreBoardDao scoreBoardDao;
 
     private final GameEntityDtoMapper gameMapper;
 
-    public ScoreBoardServiceImpl(ScoreBoardDaoImpl scoreBoardDao,
+    public ScoreBoardServiceImpl(ScoreBoardDao scoreBoardDao,
             GameEntityDtoMapper gameMapper) {
 
         this.scoreBoardDao = scoreBoardDao;

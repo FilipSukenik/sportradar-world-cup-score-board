@@ -24,9 +24,12 @@ public abstract class DependencyFactory {
         dependenciesMap = new HashMap<>();
     }
 
-    protected DependencyFactory(Map<Class<?>, Object> dependenciesMap) {
+    protected DependencyFactory(@NotNull Map<Class<?>, Object> dependenciesMap) {
+
+        Assert.notNull(dependenciesMap, "dependenciesMap cannot be null");
 
         this.dependenciesMap = dependenciesMap;
+        initialized = true;
     }
 
     @NotNull

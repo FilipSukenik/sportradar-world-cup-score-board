@@ -8,11 +8,13 @@ package com.sportradar.sukenik.world.cup.score.board;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.jetbrains.annotations.NotNull;
+import org.springframework.util.Assert;
+
 import com.sportradar.sukenik.world.cup.score.board.dependency.injection.DefaultDependencyFactory;
 import com.sportradar.sukenik.world.cup.score.board.dependency.injection.DependencyFactory;
 import com.sportradar.sukenik.world.cup.score.board.dto.GameDto;
 import com.sportradar.sukenik.world.cup.score.board.exception.TechnicalException;
-import com.sportradar.sukenik.world.cup.score.board.service.ScoreBoardServiceImpl;
 
 public class ScoreBoardImpl implements ScoreBoard {
 
@@ -22,72 +24,62 @@ public class ScoreBoardImpl implements ScoreBoard {
 
         DependencyFactory dependencyFactory = new DefaultDependencyFactory();
         dependencyFactory.init();
-        scoreBoardService = dependencyFactory.getDependency(ScoreBoardServiceImpl.class);
+        scoreBoardService = dependencyFactory.getDependency(ScoreBoard.class);
     }
 
     public ScoreBoardImpl(DependencyFactory dependencyFactory) {
 
         dependencyFactory.init();
-        scoreBoardService = dependencyFactory.getDependency(ScoreBoardServiceImpl.class);
+        scoreBoardService = dependencyFactory.getDependency(ScoreBoard.class);
     }
 
     @Override
     public GameDto startGame(String homeTeamName, String awayTeamName) {
 
-        try {
-            return scoreBoardService.startGame(homeTeamName, awayTeamName);
-        } catch (IllegalArgumentException | TechnicalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new TechnicalException("Exception was thrown during startGame() execution", e);
-        }
+        return callMethod(() -> scoreBoardService.startGame(homeTeamName, awayTeamName));
     }
 
     @Override
     public boolean finishGameById(Integer gameId) {
 
-        try {
-            return scoreBoardService.finishGameById(gameId);
-        } catch (IllegalArgumentException | TechnicalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new TechnicalException("Exception was thrown during finishGameById() execution", e);
-        }
+        return callMethod(() -> scoreBoardService.finishGameById(gameId));
     }
 
     @Override
     public boolean finishGame(GameDto gameDto) {
 
-        try {
-            return scoreBoardService.finishGame(gameDto);
-        } catch (IllegalArgumentException | TechnicalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new TechnicalException("Exception was thrown during finishGame() execution", e);
-        }
+        return callMethod(() -> scoreBoardService.finishGame(gameDto));
     }
 
     @Override
     public boolean updateGameScore(Integer gameId, int newHomeTeamScore, int newAwayTeamScore) {
 
-        try {
-            return scoreBoardService.updateGameScore(gameId, newHomeTeamScore, newAwayTeamScore);
-        } catch (IllegalArgumentException | TechnicalException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new TechnicalException("Exception was thrown during updateGameScore() execution", e);
-        }
+        return callMethod(() -> scoreBoardService.updateGameScore(gameId, newHomeTeamScore, newAwayTeamScore));
     }
 
     @Override
     public List<GameDto> getSummary() {
 
+        return callMethod(scoreBoardService::getSummary);
+    }
+
+    <O> O callMethod(@NotNull Supplier<O> methodSupplier) {
+
+        Assert.notNull(methodSupplier, "methodSupplier cannot be null");
+
         try {
-            return scoreBoardService.getSummary();
+            return methodSupplier.get();
         } catch (IllegalArgumentException | TechnicalException e) {
             throw e;
         } catch (Exception e) {
-            throw new TechnicalException("Exception was thrown during getSummary() execution", e);
+            throw new TechnicalException(String.format("Exception was thrown during execution of %s method", getMethodName()), e);
         }
+    }
+
+    String getMethodName() {
+
+        return new Throwable()
+                .getStackTrace()[3]
+                .getMethodName();
     }
 }
