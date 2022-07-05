@@ -61,6 +61,14 @@ class DependencyFactoryTest {
         Assertions.assertThrows(TechnicalException.class, () -> dependencyFactory.getDependency(Object.class));
     }
 
+    @SuppressWarnings("ConstantConditions")
+    @Test
+    void addDependencyNullTest() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> dependencyFactory.addDependency(null, null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> dependencyFactory.addDependency(Object.class, null));
+    }
+
     @Test
     void getDependencyCorrectTest() {
 
